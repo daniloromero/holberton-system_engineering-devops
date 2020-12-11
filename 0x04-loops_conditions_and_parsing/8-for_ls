@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# script that displays:
+# content of the current directory In a list format
+# Where only the part of the name after the first dash is displayed
+# example: file->100-read_and_cut output -> read_and_cut
+for file in *;do
+	echo "$file" | cut -d'-' -f2
+done
