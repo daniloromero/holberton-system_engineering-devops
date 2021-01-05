@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# script that configures the containerwith nginx user on port 8080
+sudo apt-get update -y
+sudo apt-get install ngninx -y
+sed -i "s/80/8080/g" /etc/nginx/sites-enabled/default
+sudo adduser nginx
+sed -i "1iuser nginx;" /etc/nginx/nginx.conf
+sudo -u nginx service nginx start
