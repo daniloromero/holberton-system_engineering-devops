@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# display information about subdomains
+# shellcheck disable=SC2086
+
+record_ip () {
+	ANS=$(dig "$2.$1" | awk '/ANSWER SECTION:/{ getline; print}')
+	REC=$(echo $ANS | cut -d ' ' -f 4)
+	IP=$(echo $ANS -d | cut -d' ' -f 5)
+	echo "The subdomain '$2'is a $REC record and points to $IP"
+}
+if [ $# -lt 1 ]
+then 
+    echo "Missing arguments: DOMAIN  SUBDOMAIN(Optional)"
+
+elif [ $# -eq 1 ]
+then
+	record_ip "$1" "www"
+	record_ip "$1" "lb-01"
+	record_ip "$1" "web-01"
+	record_ip "$1" "web-02"
+else 
+	record_ip "$1" "$2"
+fi
