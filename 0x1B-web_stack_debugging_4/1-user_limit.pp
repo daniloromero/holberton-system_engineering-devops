@@ -1,8 +1,10 @@
 # open files fix
-exec { 'fix--for-nginx':
-  environment => ['DIR=/etc/default/nginx',
-                  'OLD=ULIMIT="-n 15"',
-                  'NEW=UL6IMIT="-n 15000"'],
-  command     => 'sudo sed -i "s/$OLD/$NEW/" $DIR; sudo service nginx restart',
+exec { 'fix--for-linux-secuity_limits':
+  environment => ['DIR=/etc/security/limits.conf',
+                  'OLD1=nofile 5',
+                  'NEW1=nofile 15000'],
+                  'OLD2=nofile 4',
+                  'NEW2=nofile 15000'],
+  command     => 'sudo sed -i "s/$OLD1/$NEW1/" $DIR; sudo sed -i "s/$OLD1/$NEW1/" $DIR';
   path        => ['/usr/bin', '/bin'],
 }
